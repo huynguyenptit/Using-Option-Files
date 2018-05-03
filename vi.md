@@ -11,9 +11,9 @@ Hầu hết các chương trình MySQL có thể đọc các tùy chọn khởi 
 
 > Ghi chú 
 
-> Một chương trình MySQL bắt đầu bằng tùy chọn `\--no-defaults` không đọc các file tùy chọn nào ngoài `.mylogin.cnf`. 
+Một chương trình MySQL bắt đầu bằng tùy chọn `\--no-defaults` không đọc các file tùy chọn nào ngoài `.mylogin.cnf`. 
 
-Nhiều file tùy chọn là các file văn bản thuần túy, được tạo bằng bất kỳ trình soạn thảo văn bản nào. Ngoại lệ là file `.mylogin.cnf` chứa các tùy chọn đường dẫn đăng nhập. Đây là một file được mã hóa được tạo bởi tiện ích [**mysql_config_editor**][4]. Xem [Mục 4.6.6, "**mysql_config_editor** — Tiện ích cấu hình MySQL"][4]. Một "đường dẫn đăng nhập" là một nhóm tùy chọn chỉ cho phép một số tùy chọn nhất định:  `host`, `user`, `password`, `port` và `socket`.  Chương trình khách hàng chỉ định đường dẫn đăng nhập nào được đọc từ `.mylogin.cnf` bằng cách sử dụng tùy chọn [`\--login-path`][5]. 
+Nhiều file tùy chọn là các file văn bản thuần túy, được tạo bằng bất kỳ trình soạn thảo văn bản nào. Ngoại trừ file `.mylogin.cnf` chứa các tùy chọn đường dẫn đăng nhập. Đây là một file được mã hóa được tạo bởi tiện ích [**mysql_config_editor**][4]. Xem [Mục 4.6.6, "**mysql_config_editor** — MySQL Configuration Utility"][4]. Một "đường dẫn đăng nhập" là một nhóm tùy chọn chỉ cho phép một số tùy chọn nhất định:  `host`, `user`, `password`, `port` và `socket`.  Chương trình khách hàng chỉ định đường dẫn đăng nhập nào được đọc từ `.mylogin.cnf` bằng cách sử dụng tùy chọn [`\--login-path`][5]. 
 
 Để chỉ định tên file đường dẫn đăng nhập thay thế, hãy đặt biến môi trường  `MYSQL_TEST_LOGIN_FILE`. Biến này được sử dụng bởi tiện ích thử nghiệm **mysql-test-run.pl**, nhưng cũng được nhận diện bởi [**mysql_config_editor**][4] và bởi các máy khách MySQL như [**mysql**][6], [**mysqladmin**][7], v.v. 
 
@@ -34,12 +34,12 @@ Trên Windows, các chương trình MySQL đọc các tùy chọn khởi động
 
 Trong bảng trước, `%PROGRAMDATA%` đại diện cho thư mục hệ thống file chứa dữ liệu ứng dụng cho tất cả người dùng trên máy chủ lưu trữ. Đường dẫn này mặc định là `C:ProgramData` trên Microsoft Windows Vista trở lên, và `C:Documents and SettingsAll UsersApplication Data` trên các phiên bản cũ hơn của Microsoft Windows. 
 
-`%WINDIR%` represents the location of your Windows directory. This is commonly `C:WINDOWS`. Use the following command to determine its exact location from the value of the `WINDIR` environment variable: 
+`%WINDIR%` đại diện cho vị trí của thư mục Window của bạn. Thông thường là `C:WINDOWS`. Sử dụng câu lệnh dưới đây để xác minh thực sự vị trí từ giá trị của biến môi trường `WINDIR`:
     
     
     C:> echo %WINDIR%
 
-`%APPDATA%` đại diện cho vị trí của thư mục dữ liệu ứng dụng Windows. Sử dụng lệnh sau đây để xác định vị trí chính xác của nó từ giá trị của biến môi trường  `APPDATA` environment variable: 
+`%APPDATA%` đại diện cho vị trí của thư mục dữ liệu ứng dụng Windows. Sử dụng lệnh sau đây để xác định vị trí chính xác của nó từ giá trị của biến môi trường  `APPDATA`: 
     
     
     C:> echo %APPDATA%
@@ -80,11 +80,11 @@ Bất cứ tùy chọn nào có thể được đưa ra trong dòng lệnh khi c
 
 Cú pháp để chỉ định các tùy chọn trong một file tùy chọn tương tự như cú pháp dòng lệnh (xem [Phần 4.2.4, "Sử dụng Tùy chọn trên Dòng Lệnh"] [14]). Tuy nhiên, trong một file tùy chọn, bạn bỏ qua hai dấu gạch ngang hàng đầu từ tên tùy chọn và bạn chỉ định một tùy chọn trên mỗi dòng. Ví dụ, `\ - quick` và`\ - host = localhost` trên dòng lệnh nên được chỉ định là `quick` và`host = localhost` trên các dòng riêng biệt trong một file tùy chọn. Để chỉ định một tùy chọn của biểu mẫu `\ - loose-_`opt_name`_` trong một file tùy chọn, hãy viết nó như là`loose-_`opt_name`_`. 
 
-Các dòng trống trong các file tùy chọn bị bỏ qua. Các dòng không trống có thể có bất kỳ dạng nào sau đây:
+Các dòng trống trong các file tùy chọn bị bỏ qua. Các dòng khác có thể có bất kỳ dạng nào sau đây:
 
 * `#_`comment`_`, `;_`comment`_`
 
-Dòng chú thích bắt đầu bằng `#` hoặc `;`. Nhận xét `#` cũng có thể bắt đầu ở giữa một dòng.
+Các dòng comment bắt đầu bằng `#` hay `;`. Một dòng comment `#` có thể bắt đầu ở giữa dòng.
 
 * `[_`group`_]`
 
@@ -100,7 +100,7 @@ _`group`_ là tên của chương trình hoặc nhóm mà bạn muốn đặt t�
 
 Không gian hàng đầu và cuối được tự động xóa khỏi tên và giá trị tùy chọn. 
 
-Bạn có thể sử dụng các chuỗi thoát `b`,`t`, `n`,`r`, `\` và `s` trong các giá trị tùy chọn để biểu diễn backspace, tab, newline, dấu gạch chéo, dấu gạch chéo ngược và ký tự khoảng trắng . Trong các file tùy chọn, các quy tắc thoát này sẽ áp dụng:
+Bạn có thể sử dụng các trình tự thoát sau `b`,`t`, `n`,`r`, `\` và `s` trong các giá trị tùy chọn để biểu diễn backspace, tab, newline, dấu gạch chéo, dấu gạch chéo ngược và ký tự khoảng trắng . Trong các file tùy chọn, các quy tắc thoát này sẽ áp dụng:
 
 * Dấu gạch chéo ngược theo sau là một ký tự chuỗi thoát hợp lệ được chuyển đổi thành ký tự được trình bày theo trình tự. Ví dụ, `s` được chuyển đổi thành một dấu cách.
 * Dấu gạch chéo ngược không được theo sau bởi một ký tự chuỗi thoát hợp lệ vẫn không thay đổi. Ví dụ, `S` được giữ nguyên.
@@ -141,7 +141,7 @@ Liệt kê các nhóm tùy chọn chung hơn trước tiên và các nhóm cụ 
     [mysqldump]
     quick
 
-Đây là các file tùy chọn người dùng điển hình:
+Dưới đây là một tùy chọn file user cụ thể:
     
     
     [client]
@@ -196,5 +196,23 @@ Chỉ thị `! Includeir` được xử lý tương tự ngoại trừ tất c�
 
 Nếu một file tùy chọn chứa các chỉ thị `! Include` hoặc`! Includeir`, các file được đặt tên bởi các chỉ thị đó được xử lý bất cứ khi nào file tùy chọn được xử lý, bất kể chúng xuất hiện ở đâu trong file.
 
-
+[1]: https://dev.mysql.com/mysqld.html "4.3.1 mysqld — The MySQL Server"
+[2]: https://dev.mysql.com/server-options.html#option_mysqld_verbose
+[3]: https://dev.mysql.com/server-options.html#option_mysqld_help
+[4]: https://dev.mysql.com/mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility"
+[5]: https://dev.mysql.com/option-file-options.html#option_general_login-path
+[6]: https://dev.mysql.com/mysql.html "4.5.1 mysql — The MySQL Command-Line Tool"
+[7]: https://dev.mysql.com/mysqladmin.html "4.5.2 mysqladmin — Client for Administering a MySQL Server"
+[8]: https://dev.mysql.com/option-file-options.html#option_general_defaults-extra-file
+[9]: https://dev.mysql.com/mysql-installer.html "2.3.3 MySQL Installer for Windows"
+[10]: https://dev.mysql.com/source-configuration-options.html#option_cmake_sysconfdir
+[11]: https://dev.mysql.com/mysqld-safe.html "4.3.2 mysqld_safe — MySQL Server Startup Script"
+[12]: https://dev.mysql.com/server-options.html#option_mysqld_datadir
+[13]: https://dev.mysql.com/server-options.html#option_mysqld_user
+[14]: https://dev.mysql.com/command-line-options.html "4.2.4 Using Options on the Command Line"
+[15]: https://dev.mysql.com/string-literals.html "9.1.1 String Literals"
+[16]: https://dev.mysql.com/mysql-options.html "27.8.7.50 mysql_options()"
+[17]: https://dev.mysql.com/mysqldump.html "4.5.4 mysqldump — A Database Backup Program"
+[18]: https://dev.mysql.com/server-system-variables.html#sysvar_sql_mode
+ 
   
